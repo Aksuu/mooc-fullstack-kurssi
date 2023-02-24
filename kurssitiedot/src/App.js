@@ -1,62 +1,38 @@
-const Header = (props) => {
-  return (
-  <div>
-    <p>{props.course}</p>
-  </div>
-  )
-}
+import { useState } from 'react'
 
-const Part = (props) => {
-  return (
-    <div>
-    </div>
-  )
-}
+const Display = ({ counter }) => <div>{counter}</div>
 
-const Content = (props) => {
-  return (
-    <div>
-      <p>{props.parts[0].name} {props.parts[0].exercises}</p>
-      <p>{props.parts[1].name} {props.parts[1].exercises}</p>
-      <p>{props.parts[2].name} {props.parts[2].exercises}</p>
-    </div>
-  )
-}
-
-const Total = (props) => {
-  const totalExercises = props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises
-  return (
-    <div>
-      <p>Total: {totalExercises}</p>
-    </div>
-  )
-}
+const Button = ({ handleClick, text }) => (
+  <button onClick={handleClick}>
+    {text}
+  </button>
+)
 
 const App = () => {
-  const course = {
-    name: 'Half Stack application development',
-    parts: [
-      {
-        name: 'Fundamentals of React',
-        exercises: 10
-      },
-      {
-        name: 'Using props to pass data',
-        exercises: 7
-      },
-      {
-        name: 'State of a component',
-        exercises: 14
-      }
-    ]
+  const [counter, setCounter] = useState(0)
+  console.log('rendering with counter value', counter)
+
+  const increaseByOne = () => {
+    console.log('increasing, value before', counter)
+    setCounter(counter + 1)
+  }
+
+  const decreaseByOne = () => {
+    console.log('decreasing, value before', counter)
+    setCounter(counter - 1)
+  }
+
+  const setToZero = () => {
+    console.log('resetting to zero, value before', counter)
+    setCounter(0)
   }
 
   return (
     <div>
-      <Header course={course.name}/>
-      <Content parts={course.parts} />
-      <Total parts={course.parts} />
-
+      <Display counter={counter} />
+      <Button handleClick={increaseByOne} text="plus" />
+      <Button handleClick={setToZero} text="zero" />
+      <Button handleClick={decreaseByOne} text="minus" />
     </div>
   )
 }
