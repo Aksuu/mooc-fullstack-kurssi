@@ -12,12 +12,17 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
   const [feedbackTotal, setFeedbackTotal] = useState(0)
+  const [feedbackAverage, setFeedbackAverage] = useState(0)
 
   const feedbackGood = () => {
     setGood(good + 1)
+    setFeedbackAverage(feedbackAverage + 1)
     const updatedGood = good + 1
+    const updatedGoodAverage = feedbackAverage + 1
     setGood(updatedGood)
     setFeedbackTotal(updatedGood + neutral + bad)
+    setFeedbackAverage(updatedGoodAverage)
+
   }
 
   const feedbackNeutral = () => {
@@ -28,10 +33,13 @@ const App = () => {
   }
 
   const feedbackBad = () => {
-    setBad(bad  + 1)
+    setBad(bad + 1)
+    setFeedbackAverage(feedbackAverage - 1)
     const updatedBad = bad + 1
+    const updatedBadAverage = feedbackAverage - 1
     setBad(updatedBad)
     setFeedbackTotal(updatedBad + good + neutral)
+    setFeedbackAverage(updatedBadAverage)
   }
 
   return (
@@ -46,6 +54,7 @@ const App = () => {
       <p>Neutral: {neutral}</p>
       <p>Bad: {bad}</p>
       <p>All: {feedbackTotal}</p>
+      <p>Average: {feedbackAverage / feedbackTotal}</p>
     </div>
   )
 }
