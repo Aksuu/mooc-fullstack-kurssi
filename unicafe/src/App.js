@@ -13,6 +13,7 @@ const App = () => {
   const [bad, setBad] = useState(0)
   const [feedbackTotal, setFeedbackTotal] = useState(0)
   const [feedbackAverage, setFeedbackAverage] = useState(0)
+  const [positivePercent, setPositivePercent] = useState(0)
 
   const feedbackGood = () => {
     setGood(good + 1)
@@ -55,6 +56,7 @@ const App = () => {
       <p>Bad: {bad}</p>
       <p>All: {feedbackTotal}</p>
       <p>Average: {feedbackAverage / feedbackTotal}</p>
+      <p>Positive: {good/feedbackTotal*100}%</p>
     </div>
   )
 }
