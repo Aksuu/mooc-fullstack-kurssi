@@ -6,6 +6,28 @@ const Button = ({ handleClick, text }) => (
   </button>
 )
 
+const Statistics = (props) => {
+  if (props.feedbackTotal === 0) {
+    return (
+      <div>
+        No feedback given.
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      <h1>Statistics</h1>
+      <p>Good: {props.good}</p>
+      <p>Neutral: {props.neutral}</p>
+      <p>Bad: {props.bad}</p>
+      <p>All: {props.feedbackTotal}</p>
+      <p>Average: {props.feedbackAverage / props.feedbackTotal}</p>
+      <p>Positive: {props.good/props.feedbackTotal*100}%</p>
+    </div>
+  )
+}
+
 const App = () => {
   // tallenna napit omaan tilaansa
   const [good, setGood] = useState(0)
@@ -13,7 +35,6 @@ const App = () => {
   const [bad, setBad] = useState(0)
   const [feedbackTotal, setFeedbackTotal] = useState(0)
   const [feedbackAverage, setFeedbackAverage] = useState(0)
-  const [positivePercent, setPositivePercent] = useState(0)
 
   const feedbackGood = () => {
     setGood(good + 1)
@@ -49,14 +70,13 @@ const App = () => {
       <Button handleClick={feedbackGood} text= 'Good' />
       <Button handleClick={feedbackNeutral} text= 'Neutral' />
       <Button handleClick={feedbackBad} text= 'Bad' />
-
-      <h1>Statistics</h1>
-      <p>Good: {good}</p>
-      <p>Neutral: {neutral}</p>
-      <p>Bad: {bad}</p>
-      <p>All: {feedbackTotal}</p>
-      <p>Average: {feedbackAverage / feedbackTotal}</p>
-      <p>Positive: {good/feedbackTotal*100}%</p>
+      <Statistics
+      good={good}
+      neutral={neutral}
+      bad={bad}
+      feedbackTotal={feedbackTotal}
+      feedbackAverage={feedbackAverage}
+      />
     </div>
   )
 }
