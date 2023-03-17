@@ -1,28 +1,59 @@
-const Hello = (props) => {
-  const bornYear = () => {
-    const yearNow = new Date().getFullYear()
-    return yearNow - props.age
-  }
+import { useState } from 'react'
 
+const History = (props) => {
+  if (props.allClicks.length === 0) {
+    return (
+      <div>
+        the app is used by pressing the buttons
+      </div>
+    )
+  }
   return (
     <div>
-      <p>
-        Hello {props.name}, you are {props.age} years old
-      </p>
-      <p>So you were probably born {bornYear()}</p>
+      button press history: {props.allClicks.join(' ')}
     </div>
   )
 }
 
+const Button = ({ handleClick, text }) => (
+  <button onClick={handleClick}>
+    {text}
+  </button>
+)
+
 const App = () => {
-  const nimi = 'Pekka'
-  const ika = 10
+  const [left, setLeft] = useState(0)
+  const [right, setRight] = useState(0)
+  const [allClicks, setAll] = useState([])
+  const [total, setTotal] = useState(0)
+
+
+  const handleLeftClick = () => {
+    setAll(allClicks.concat('L'))
+    setLeft(left + 1)
+    const updatedLeft = left + 1
+    setLeft(updatedLeft)
+    setTotal(updatedLeft + right)
+  }
+
+  const handleRightClick = () => {
+    setAll(allClicks.concat('R'))
+    setRight(right + 1)
+    const updatedRight = right + 1
+    setRight(updatedRight)
+    setTotal(updatedRight + left)
+  }
 
   return (
     <div>
-      <h1>Greetings</h1>
-      <Hello name="Maya" age={26 + 10} />
-      <Hello name={nimi} age={ika} />
+      <div>
+        {left}
+        <Button handleClick={handleLeftClick} text='Left' />
+        <Button handleClick={handleRightClick} text='Right' />
+        {right}
+        <p>Total {total}</p>
+        <History allClicks={allClicks}/>
+      </div>
     </div>
   )
 }
