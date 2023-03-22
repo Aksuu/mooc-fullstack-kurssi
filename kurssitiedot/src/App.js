@@ -1,55 +1,8 @@
-const Header = ({course}) => {
-  return (
-  <div>
-    <h1>{course}</h1>
-  </div>
-  )
-}
-
-const Part = ({part, exercise}) => {
-  return (
-    <div>
-      <p>
-        {part} {exercise}
-      </p>
-    </div>
-  )
-}
-
-const Content = ({parts}) => {
-  return (
-    <div>
-        {parts.map(part =>
-        <Part
-          key={part.name}
-          part={part.name}
-          exercise={part.exercises}
-        />
-        )}
-    </div>
-  )
-}
-
-const Total = ({exercises}) => {
-  return (
-    <div>
-      <p>Total: {exercises.reduce((accumulator, current) => accumulator += current)}</p>
-    </div>
-  )
-}
-
-const Course = ({course}) => {
-return (
-  <div>
-    <Header course={course.name}/>
-    <Content parts={course.parts}/>
-    <Total exercises={course.parts.map(part => part.exercises)}/>
-  </div>
-)
-}
+import Course from "./Course"
 
 const App = () => {
-  const course = {
+  const courses = [
+   {
     name: 'Half Stack application development',
     id: 1,
     parts: [
@@ -74,11 +27,26 @@ const App = () => {
         id: 4
       }
     ]
+  },
+  {
+    name: 'Node.js',
+    id: 2,
+    parts: [
+      {
+        name: 'Routing',
+        exercises: 3,
+        id: 1
+      },
+      {
+        name: 'Middlewares',
+        exercises: 7,
+        id: 2
+      }
+    ]
   }
+]
   return (
-    <div>
-      <Course course={course} />
-    </div>
+      courses.map(course => <Course key={course.name} course={course} /> )
   )
 }
 
