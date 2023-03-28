@@ -1,69 +1,42 @@
 import { useState } from 'react'
-
-const Person = ({ person }) => {
-  return (
-    <p>{person.name} {person.number}</p>
-  )
-}
+import ContactForm from './components/ContactForm'
+import Contacts from './components/Contacts'
 
 const App = () => {
   const [persons, setPersons] = useState([])
-  const [newName, setNewName] = useState('')
-  const [newNumber, setNewNumber] = useState('')
+  const [newPerson, setNewPerson] = useState({ name: "", number: "" })
+  const [contacts, setContacts] = useState(persons)
 
   const addContact = (event) => {
     event.preventDefault()
 
-    const filterDuplicates = persons.filter((person) => person.name === newName)
+    const filterDuplicates = persons.filter((person) => person.name === newPerson.name)
 
     if (filterDuplicates.length === 0) {
-      const contactObject = {
-        name: newName,
-        number: newNumber
-      }
-      setPersons(persons.concat(contactObject))
+      setPersons(persons.concat(newPerson))
+      setContacts(contacts.concat(newPerson))
       } else {
-        alert(`${newName} already exists in the phonebook.`)
+        alert(`${newPerson.name} already exists in the phonebook.`)
       }
 
-    setNewName('')
-    setNewNumber('')
+    setNewPerson({ name: "", number: "" })
 }
 
-  const handleNameChange = (event) => {
-    setNewName(event.target.value)
-  }
-
-  const handleNumberChange = (event) => {
-    setNewNumber(event.target.value)
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    setNewPerson({ ...newPerson, [name]: value })
   }
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <form onSubmit={addContact}>
-        <div>
-          Name: <input
-                  value={newName}
-                  onChange={handleNameChange}
-                />
-        </div>
-        <div>
-          Number: <input
-                  value={newNumber}
-                  onChange={handleNumberChange}
-                  />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <ContactForm
+        addContact={addContact}
+        newPerson={newPerson}
+        handleChange={handleChange}
+      />
       <h2>Numbers</h2>
-        {persons.map(person =>
-                    <Person key={person.name} person={person}/>)}
-      <ul>
-        {persons.name} {persons.number}
-      </ul>
+        <Contacts contacts={contacts}/>
     </div>
   )
 }
