@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 const Person = ({ person }) => {
   return (
-    <p>{person.content}</p>
+    <p>{person.name}</p>
   )
 }
 
@@ -11,20 +11,27 @@ const App = () => {
     { name: 'Aksu' }
   ])
   const [newName, setNewName] = useState('')
-  const [showAll, setShowAll] = useState(true)
+  const [filterName, setFilterName] = useState(true)
 
   const addName = (event) => {
     event.preventDefault()
-    const nameObject = {
-    content: newName,
-    id: persons.length + 1,
-  }
-    setPersons(persons.concat(nameObject))
+
+    const filterDuplicates = persons.filter((person) => person.name === newName)
+    console.log('Filter: ', {filterDuplicates})
+
+    if (filterDuplicates.length === 0) {
+      const nameObject = {
+        name: newName
+      }
+      setPersons(persons.concat(nameObject))
+      } else {
+        alert(`${newName} already exists in the phonebook.`)
+      }
+
     setNewName('')
-}
+};
 
   const handleNameChange = (event) => {
-    console.log(event.target.value)
     setNewName(event.target.value)
   }
 
@@ -43,14 +50,13 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      {persons.map(person => <Person key={person.id} person={person}/>)}
+        {persons.map(person => <Person key={person.name} person={person}/>)}
       <div>debug: {newName}</div>
       <ul>
         {persons.name}
       </ul>
     </div>
   )
-
 }
 
 export default App
