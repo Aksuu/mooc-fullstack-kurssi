@@ -1,11 +1,19 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ContactForm from './components/ContactForm'
 import Contacts from './components/Contacts'
+import axios from "axios";
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newPerson, setNewPerson] = useState({ name: "", number: "" })
-  const [contacts, setContacts] = useState(persons)
+  const [contacts, setContacts] = useState([])
+
+  useEffect(() => {
+    axios.get("http://localhost:3001/contacts").then((response) => {
+      setPersons(response.data);
+      setContacts(response.data);
+    });
+  }, []);
 
   const addContact = (event) => {
     event.preventDefault()
