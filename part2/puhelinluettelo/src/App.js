@@ -21,8 +21,12 @@ const App = () => {
     const filterDuplicates = persons.filter((person) => person.name === newPerson.name)
 
     if (filterDuplicates.length === 0) {
-      setPersons(persons.concat(newPerson))
-      setContacts(contacts.concat(newPerson))
+      axios
+          .post('http://localhost:3001/contacts', newPerson)
+          .then(response =>{
+            setPersons(persons.concat(newPerson))
+            setContacts(contacts.concat(newPerson))
+          })
       } else {
         alert(`${newPerson.name} already exists in the phonebook.`)
       }
