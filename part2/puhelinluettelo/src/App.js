@@ -41,6 +41,18 @@ const App = () => {
     setNewPerson({ ...newPerson, [name]: value })
   }
 
+  const deleteContact = (id, name) => {
+    if (window.confirm(`Are you sure you wish to delete ${name}?`)) {
+      contactService
+        .remove(id)
+        .then(response => {
+          const updatedContacts = persons.filter(person => person.id !== id)
+          setPersons(updatedContacts)
+          setContacts(updatedContacts)
+        })
+    }
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -50,7 +62,7 @@ const App = () => {
         handleChange={handleChange}
       />
       <h2>Numbers</h2>
-        <Contacts contacts={contacts}/>
+        <Contacts contacts={contacts} deleteContact={deleteContact}/>
     </div>
   )
 }

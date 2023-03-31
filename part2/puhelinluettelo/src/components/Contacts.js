@@ -1,11 +1,16 @@
 import React from "react"
-import Person from "./Person"
 
-const Contacts = ({ contacts }) => {
+const Contacts = ({ contacts, deleteContact }) => {
   return (
    <div>
     {contacts.map((person) =>
-      <Person key={person.name} person={person}/>)}
+      <div key={person.name}>
+      {person.name} {person.number}
+      <button onClick={() => deleteContact(person.id, person.name)}>
+        Delete
+      </button>
+      </div>
+       )}
   </div>
 )}
 
