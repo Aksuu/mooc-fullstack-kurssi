@@ -6,14 +6,14 @@ const ContactForm = ({ addContact, newPerson, handleChange }) => {
     <div>
       Name: <input
               name='name'
-              value={newPerson.name}
+              value={newPerson.name || ''}
               onChange={handleChange}
             />
     </div>
     <div>
       Number: <input
               name='number'
-              value={newPerson.number}
+              value={newPerson.number || ''}
               onChange={handleChange}
               />
     </div>

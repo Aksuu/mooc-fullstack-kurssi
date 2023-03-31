@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import ContactForm from './components/ContactForm'
 import Contacts from './components/Contacts'
-import axios from "axios";
+import contactService from './services/contacts'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -9,11 +9,13 @@ const App = () => {
   const [contacts, setContacts] = useState([])
 
   useEffect(() => {
-    axios.get("http://localhost:3001/contacts").then((response) => {
-      setPersons(response.data);
-      setContacts(response.data);
-    });
-  }, []);
+    contactService
+      .getAll()
+        .then(initialContacts => {
+          setPersons(initialContacts)
+          setContacts(initialContacts)
+        })
+  }, [])
 
   const addContact = (event) => {
     event.preventDefault()
@@ -21,11 +23,11 @@ const App = () => {
     const filterDuplicates = persons.filter((person) => person.name === newPerson.name)
 
     if (filterDuplicates.length === 0) {
-      axios
-          .post('http://localhost:3001/contacts', newPerson)
-          .then(response =>{
-            setPersons(persons.concat(newPerson))
-            setContacts(contacts.concat(newPerson))
+      contactService
+        .create(newPerson)
+          .then(returnedContact => {
+            setNewPerson(persons.concat(returnedContact))
+            setContacts(persons.concat(returnedContact))
           })
       } else {
         alert(`${newPerson.name} already exists in the phonebook.`)

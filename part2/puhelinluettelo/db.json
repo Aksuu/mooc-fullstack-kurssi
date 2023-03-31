@@ -24,6 +24,66 @@
       "name": "Teemu",
       "number": "040 12354154",
       "id": 5
+    },
+    {
+      "name": "John Dove",
+      "number": "040-33315-123",
+      "id": 6
+    },
+    {
+      "name": "Jane Doe",
+      "number": "050-12366-3233",
+      "id": 7
+    },
+    {
+      "name": "New Name",
+      "number": "11-222-123",
+      "id": 8
+    },
+    {
+      "0": {
+        "name": "Arto Hellas",
+        "number": "040-123456",
+        "id": 1
+      },
+      "1": {
+        "name": "Ada Lovelace",
+        "number": "39-44-5323523",
+        "id": 2
+      },
+      "2": {
+        "name": "Dan Abramov",
+        "number": "12-43-234345",
+        "id": 3
+      },
+      "3": {
+        "name": "Mary Poppendieck",
+        "number": "39-23-6423122",
+        "id": 4
+      },
+      "4": {
+        "name": "Teemu",
+        "number": "040 12354154",
+        "id": 5
+      },
+      "5": {
+        "name": "John Dove",
+        "number": "040-33315-123",
+        "id": 6
+      },
+      "6": {
+        "name": "Jane Doe",
+        "number": "050-12366-3233",
+        "id": 7
+      },
+      "7": {
+        "name": "New Name",
+        "number": "11-222-123",
+        "id": 8
+      },
+      "name": "Another Name",
+      "number": "222-333-3456",
+      "id": 9
     }
   ]
 }
